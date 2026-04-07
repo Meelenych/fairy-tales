@@ -27,15 +27,10 @@
       "static/chunks/main.js",
       "static/chunks/pages/_error.js"
     ],
-    "/fairy-tale/[id]": [
+    "/admin": [
       "static/chunks/webpack.js",
       "static/chunks/main.js",
-      "static/chunks/pages/fairy-tale/[id].js"
-    ],
-    "/list": [
-      "static/chunks/webpack.js",
-      "static/chunks/main.js",
-      "static/chunks/pages/list.js"
+      "static/chunks/pages/admin.js"
     ],
     "/random": [
       "static/chunks/webpack.js",

@@ -1,28 +1,16 @@
 import { GetServerSideProps } from 'next';
 import Link from 'next/link';
-import sqlite3 from 'sqlite3';
-import { open } from 'sqlite';
-
-interface FairyTale {
-  id: number;
-  title: string;
-  content: string;
-}
+import { FairyTalesController } from '../controllers/fairyTales';
+import type { FairyTale } from '../types/fairyTale';
+import Header from '../components/Header';
 
 interface Props {
   tale: FairyTale;
 }
 
 export const getServerSideProps: GetServerSideProps = async () => {
-  const db = await open({
-    filename: './fairy-tales.db',
-    driver: sqlite3.Database,
-  });
-
-  const tales = await db.all<FairyTale[]>('SELECT * FROM fairy_tales');
+  const tales = await FairyTalesController.getAll();
   const randomTale = tales[Math.floor(Math.random() * tales.length)];
-
-  await db.close();
 
   return {
     props: {
@@ -33,12 +21,17 @@ export const getServerSideProps: GetServerSideProps = async () => {
 
 export default function Random({ tale }: Props) {
   return (
-    <div className="min-h-screen bg-gray-100 py-8">
-      <div className="max-w-4xl mx-auto px-4">
-        <h1 className="text-4xl font-bold mb-4">{tale.title}</h1>
+    <div className="min-h-screen bg-gray-100">
+      <Header />
+      <div className="py-8">
+        <div className="max-w-4xl mx-auto px-4">
+          <h1 className="text-4xl font-bold mb-4">{tale.title}</h1>
+        <div className="text-gray-600 mb-6 text-sm space-y-1">
+          {tale.author && <p><strong>Author:</strong> {tale.author}</p>}
+          {tale.country && <p><strong>Country:</strong> {tale.country}</p>}
+          {tale.year && <p><strong>Year:</strong> {tale.year}</p>}
+        </div>
         <p className="text-lg leading-relaxed whitespace-pre-line">{tale.content}</p>
-        <div className="mt-8">
-          <Link href="/" className="text-blue-600 hover:underline">Back to Home</Link>
         </div>
       </div>
     </div>

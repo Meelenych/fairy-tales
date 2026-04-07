@@ -2,8 +2,7 @@
   "/_app": "pages/_app.js",
   "/_error": "pages/_error.js",
   "/_document": "pages/_document.js",
-  "/": "pages/index.js",
-  "/random": "pages/random.js",
+  "/admin": "pages/admin.js",
   "/list": "pages/list.js",
-  "/fairy-tale/[id]": "pages/fairy-tale/[id].js"
+  "/random": "pages/random.js"
 }
